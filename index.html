@@ -3,475 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Portfolio</title>
-    <!-- Tailwind CSS CDN for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter for a modern look -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>My Simple Site</title>
     <style>
-        /* Global styles for the Inter font and fade-in animation */
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0; /* Remove default body margin */
-            padding: 0; /* Remove default body padding */
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* Custom message box styles */
-        .message-box {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #6B8E23; /* Olive Drab for message */
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .message-box.show {
-            opacity: 1;
-        }
+        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #E0FFFF; color: #2C3E50; min-height: 100vh; display: flex; flex-direction: column; }
+        main { flex-grow: 1; width: 90%; max-width: 800px; margin: 25px auto; padding: 20px; background-color: #FFFFFF; border: 1px solid #BDC3C7; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); animation: fadeIn 0.8s ease-out forwards; }
+        .page-section { display: none; }
+        .page-section.active-page { display: block; }
+
+        .navbar { background-color: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 15px 20px; position: sticky; top: 0; z-index: 100; text-align: center; }
+        .navbar h1 { font-size: 28px; font-weight: bold; color: #34495E; margin-bottom: 15px; }
+        .navbar ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .navbar button { padding: 10px 18px; border: 1px solid #AAB7B8; border-radius: 20px; background-color: transparent; color: #2C3E50; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
+        .navbar button:hover { background-color: #F2F4F4; color: #34495E; border-color: #34495E; }
+        .navbar button.active { background-color: #34495E; color: white; border-color: #34495E; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        @media (min-width: 768px) { .navbar { display: flex; justify-content: space-between; align-items: center; } .navbar h1 { margin-bottom: 0; } }
+
+        h2 { font-size: 28px; font-weight: bold; color: #34495E; margin-bottom: 25px; text-align: center; border-bottom: 1px solid #D3D3D3; padding-bottom: 10px; }
+
+        .home-content { display: flex; flex-direction: column; align-items: center; gap: 25px; }
+        .profile-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid #7F8C8D; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .home-text { text-align: center; }
+        .home-text h2 { font-size: 36px; color: #34495E; margin-bottom: 10px; border-bottom: none; padding-bottom: 0; }
+        .home-text h2 span { color: #87CEEB; }
+        .home-text p { font-size: 17px; color: #2C3E50; margin-bottom: 20px; }
+        .home-text p span { font-weight: 600; color: #34495E; }
+        .simple-link-btn { display: inline-block; padding: 10px 20px; background-color: #3498DB; color: white; text-decoration: none; border-radius: 5px; font-weight: 600; transition: background-color 0.2s; margin: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .simple-link-btn:hover { background-color: #2980B9; }
+        @media (min-width: 768px) { .home-content { flex-direction: row; text-align: left; } .home-text { text-align: left; } }
+
+        .resume-content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .resume-content p { font-size: 16px; text-align: center; margin-bottom: 15px; }
+        .resume-preview-container { position: relative; width: 100%; height: 280px; background-color: #F8F9F9; border: 1px dashed #A9A9A9; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .resume-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; opacity: 0; transition: opacity 0.3s; }
+        .resume-preview-container:hover .resume-preview-overlay { opacity: 1; }
+        .download-resume-btn { background-color: #27AE60; color: white; padding: 12px 25px; border-radius: 25px; font-size: 17px; font-weight: bold; text-decoration: none; transition: background-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .download-resume-btn:hover { background-color: #229954; }
+        .resume-note { font-size: 12px; color: #757575; margin-top: 5px; }
+
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .project-card { background-color: #F8F9F9; border: 1px solid #BDC3C7; border-radius: 5px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+        .project-card:hover { transform: translateY(-3px); box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+        .project-card img { width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #BDC3C7; }
+        .project-card-content { padding: 18px; }
+        .project-card-content h3 { font-size: 18px; font-weight: 600; color: #34495E; margin-bottom: 8px; }
+        .project-card-content p { color: #2C3E50; font-size: 14px; margin-bottom: 15px; }
+        .tech-label { font-size: 12px; font-weight: 600; color: #7F8C8D; margin-bottom: 5px; display: block; }
+        .tech-list { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
+        .tech-item { background-color: #D6EAF8; color: #2C3E50; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 400; }
+        .project-links { display: flex; flex-wrap: wrap; gap: 8px; }
+        .simple-link-btn.view { background-color: #3498DB; color: white; }
+        .simple-link-btn.view:hover { background-color: #2980B9; }
+
+        .contact-intro-text { text-align: center; font-size: 16px; margin-bottom: 25px; }
+        .contact-methods { display: flex; flex-direction: column; align-items: center; gap: 25px; }
+        .contact-method-item { text-align: center; background-color: #F8F9F9; padding: 20px; border-radius: 5px; border: 1px solid #BDC3C7; box-shadow: 0 1px 3px rgba(0,0,0,0.1); width: 85%; max-width: 280px; }
+        .contact-method-item svg { color: #3498DB; margin: 0 auto 12px auto; display: block; width: 40px; height: 40px; }
+        .contact-method-item h3 { font-size: 20px; font-weight: 600; color: #2C3E50; margin-bottom: 8px; }
+        .contact-method-item a { font-size: 15px; color: #3498DB; text-decoration: none; font-weight: 500; }
+        .contact-method-item a:hover { text-decoration: underline; }
+        @media (min-width: 768px) { .contact-methods { flex-direction: row; justify-content: center; gap: 30px; } .contact-method-item { width: auto; } }
+
+        .contact-form-container { margin-top: 35px; text-align: center; }
+        .contact-form-container h3 { font-size: 20px; font-weight: 600; color: #2C3E50; margin-bottom: 20px; }
+        .contact-form { width: 90%; max-width: 450px; margin: 0 auto; background-color: #F8F9F9; padding: 20px; border-radius: 5px; border: 1px solid #BDC3C7; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 18px; text-align: left; }
+        .form-group label { display: block; color: #2C3E50; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .form-group input, .form-group textarea { width: calc(100% - 18px); padding: 9px; border: 1px solid #BDC3C7; border-radius: 3px; color: #2C3E50; font-size: 15px; box-shadow: inset 0 1px 1px rgba(0,0,0,0.03); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #3498DB; box-shadow: 0 0 0 1px rgba(52, 152, 219, 0.2); }
+        .form-group textarea { resize: vertical; }
+        .form-submit-btn { background-color: #3498DB; color: white; font-weight: 600; padding: 10px 22px; border-radius: 22px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: background-color 0.2s; cursor: pointer; border: none; }
+        .form-submit-btn:hover { background-color: #2980B9; transform: translateY(-1px); }
+
+        .footer { background-color: #2C3E50; color: white; padding: 18px; text-align: center; margin-top: auto; font-size: 13px; }
+        .footer p { margin: 4px 0; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .message-box { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); background-color: #2ECC71; color: white; padding: 12px 18px; border-radius: 6px; box-shadow: 0 3px 6px rgba(0,0,0,0.2); z-index: 1000; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        .message-box.show { opacity: 1; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Main container for the entire website -->
-    <div class="min-h-screen bg-gradient-to-br from-[#A7C4BC] to-[#D6E3D8] font-sans text-[#36454F] flex flex-col">
-
-        <!-- Navigation Bar -->
-        <nav class="bg-white shadow-lg p-4 sticky top-0 z-50">
-            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-                <h1 class="text-3xl font-extrabold text-[#2F4F4F] mb-4 md:mb-0">My Portfolio</h1>
-                <ul class="flex flex-wrap justify-center gap-4 text-lg" id="navbar-buttons">
-                    <!-- Navigation buttons will be generated by JavaScript -->
-                </ul>
-            </div>
+<body>
+    <div>
+        <nav class="navbar">
+            <h1>My Simple Site</h1>
+            <ul>
+                <li><button onclick="showPage('home-page')" data-target-page="home-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button></li>
+                <li><button onclick="showPage('resume-page')" data-target-page="resume-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>Resume</span></button></li>
+                <li><button onclick="showPage('portfolio-page')" data-target-page="portfolio-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M16 20V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></svg><span>Projects</span></button></li>
+                <li><button onclick="showPage('contact-page')" data-target-page="contact-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>Contact</span></button></li>
+            </ul>
         </nav>
 
-        <!-- Page Content Area -->
-        <main class="container mx-auto px-4 py-8 flex-grow">
-            <!-- Home Page Section -->
-            <section id="home-page" class="bg-white p-8 rounded-lg shadow-xl animate-fade-in page-section active-page">
-                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-                    <div class="flex-shrink-0">
-                        <!-- Placeholder for your picture -->
-                        <img
-                            src="https://placehold.co/200x200/A7C4BC/FFFFFF?text=Your+Photo"
-                            alt="Your Profile"
-                            class="w-48 h-48 rounded-full object-cover shadow-lg border-4 border-[#2F4F4F] transform transition-transform duration-300 hover:scale-105"
-                            onerror="this.onerror=null;this.src='https://placehold.co/200x200/CCCCCC/000000?text=Error';"
-                        />
+        <main>
+            <section id="home-page" class="page-section active-page">
+                <div class="home-content">
+                    <div>
+                        <img src="https://placehold.co/140x140/E0FFFF/333333?text=Your+Photo" alt="Your Profile" class="profile-img">
                     </div>
-                    <div class="text-center md:text-left">
-                        <h2 class="text-5xl font-extrabold text-[#2F4F4F] mb-4 leading-tight">
-                            Hi, I'm <span class="text-[#6B8E23]">Your Name</span>!
-                        </h2>
-                        <p class="text-xl text-[#36454F] mb-6 max-w-2xl">
-                            A passionate <span class="font-semibold text-[#6B8E23]">Software Developer</span> with expertise in web technologies, eager to build innovative and impactful solutions. Welcome to my digital space!
-                        </p>
-                        <div class="flex justify-center md:justify-start space-x-4">
-                            <a
-                                href="https://github.com/yourusername"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex items-center space-x-2 bg-[#2F4F4F] text-white px-6 py-3 rounded-full text-lg font-medium shadow-md hover:bg-[#36454F] transition-all duration-300 transform hover:-translate-y-1"
-                            >
-                                <span id="home-github-icon"></span>
-                                <span>GitHub</span>
-                            </a>
-                            <a
-                                href="https://linkedin.com/in/yourusername"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex items-center space-x-2 bg-[#6B8E23] text-white px-6 py-3 rounded-full text-lg font-medium shadow-md hover:bg-[#8B9E4A] transition-all duration-300 transform hover:-translate-y-1"
-                            >
-                                <span id="home-linkedin-icon"></span>
-                                <span>LinkedIn</span>
-                            </a>
-                        </div>
+                    <div class="home-text">
+                        <h2>Hello, I'm <span>Your Name</span>!</h2>
+                        <p>I'm a dedicated <span>creative professional</span> focused on bringing ideas to life. Welcome to my personal corner on the web!</p>
+                        <a href="#contact-page" onclick="showPage('contact-page');" class="simple-link-btn">Get In Touch</a>
+                        <a href="#portfolio-page" onclick="showPage('portfolio-page');" class="simple-link-btn">View My Work</a>
                     </div>
                 </div>
             </section>
 
-            <!-- Resume Page Section -->
-            <section id="resume-page" class="bg-white p-8 rounded-lg shadow-xl animate-fade-in page-section hidden">
-                <h2 class="text-4xl font-bold text-[#2F4F4F] mb-6 text-center">My Resume</h2>
-                <div class="flex flex-col items-center gap-6">
-                    <p class="text-lg text-[#36454F] text-center mb-4 max-w-2xl">
-                        Here you can view and download my comprehensive resume. It details my professional experience, skills, and education.
-                    </p>
-                    <div class="relative w-full max-w-3xl h-96 bg-gray-100 rounded-lg overflow-hidden shadow-inner border border-gray-200 flex items-center justify-center">
-                        <!-- Placeholder for your resume PDF picture -->
-                        <img
-                            src="https://placehold.co/800x600/D6E3D8/2F4F4F?text=Resume+Preview"
-                            alt="Resume Preview"
-                            class="w-full h-full object-contain"
-                            onerror="this.onerror=null;this.src='https://placehold.co/800x600/CCCCCC/000000?text=Error';"
-                        />
-                        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                            <span class="text-white text-xl font-semibold">Click image to view full PDF</span>
-                        </div>
+            <section id="resume-page" class="page-section">
+                <h2>My Resume</h2>
+                <div class="resume-content">
+                    <p>Here's a snapshot of my professional journey, skills, and educational background. You can view a preview below or download the full document.</p>
+                    <div class="resume-preview-container">
+                        <img src="https://placehold.co/800x600/E0FFFF/333333?text=Resume+Preview" alt="Resume Preview" class="resume-preview-img">
+                        <div class="resume-preview-overlay"><span>Click image to view full PDF</span></div>
                     </div>
-                    <a
-                        href="https://example.com/your_resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center space-x-2 bg-[#6B8E23] text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg hover:bg-[#8B9E4A] transition-all duration-300 transform hover:scale-105"
-                    >
-                        <span id="resume-download-icon"></span>
+                    <a href="https://example.com/your_resume.pdf" target="_blank" rel="noopener noreferrer" class="download-resume-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
                         <span>Download Resume (PDF)</span>
                     </a>
-                    <p class="text-sm text-gray-500 mt-2">
-                        *Note: The image above is a placeholder. Please click the download button for the actual PDF.
-                    </p>
+                    <p class="resume-note">*Note: The image above is a placeholder. Please click the download button for the actual PDF.</p>
                 </div>
             </section>
 
-            <!-- Portfolio Page Section -->
-            <section id="portfolio-page" class="bg-white p-8 rounded-lg shadow-xl animate-fade-in page-section hidden">
-                <h2 class="text-4xl font-bold text-[#2F4F4F] mb-8 text-center">My Portfolio</h2>
-                <p class="text-lg text-[#36454F] text-center mb-10 max-w-3xl mx-auto">
-                    Explore a selection of my recent projects, showcasing my skills in various technologies and problem-solving abilities. Each project highlights a unique challenge and solution.
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-projects-container">
-                    <!-- Project cards will be dynamically generated here by JavaScript -->
+            <section id="portfolio-page" class="page-section">
+                <h2>My Projects</h2>
+                <p class="contact-intro-text">Here's a selection of some work I've done, showcasing different skills and solutions.</p>
+                <div class="portfolio-grid">
+                    <div class="project-card">
+                        <img src="https://placehold.co/400x250/E0FFFF/333333?text=Project+One" alt="Project One">
+                        <div class="project-card-content">
+                            <h3>Creative Design Showcase</h3>
+                            <p>A collection of graphic design and digital art projects, highlighting visual storytelling.</p>
+                            <span class="tech-label">Skills Used:</span>
+                            <div class="tech-list"><span class="tech-item">Photoshop</span><span class="tech-item">Illustrator</span><span class="tech-item">Concept Art</span></div>
+                            <div class="project-links"><a href="https://example.com/project-one" target="_blank" rel="noopener noreferrer" class="simple-link-btn view">View Project</a></div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://placehold.co/400x250/E0FFFF/333333?text=Project+Two" alt="Project Two">
+                        <div class="project-card-content">
+                            <h3>Community Initiative</h3>
+                            <p>A project focusing on local community engagement and volunteer coordination.</p>
+                            <span class="tech-label">Skills Used:</span>
+                            <div class="tech-list"><span class="tech-item">Event Planning</span><span class="tech-item">Communication</span><span class="tech-item">Fundraising</span></div>
+                            <div class="project-links"><a href="https://example.com/project-two" target="_blank" rel="noopener noreferrer" class="simple-link-btn view">View Project</a></div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://placehold.co/400x250/E0FFFF/333333?text=Project+Three" alt="Project Three">
+                        <div class="project-card-content">
+                            <h3>Simple Web Development</h3>
+                            <p>A basic website demonstrating clean coding practices and user-friendly design.</p>
+                            <span class="tech-label">Skills Used:</span>
+                            <div class="tech-list"><span class="tech-item">HTML</span><span class="tech-item">CSS</span><span class="tech-item">JavaScript</span></div>
+                            <div class="project-links"><a href="https://example.com/project-three" target="_blank" rel="noopener noreferrer" class="simple-link-btn view">View Project</a></div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Contact Page Section -->
-            <section id="contact-page" class="bg-white p-8 rounded-lg shadow-xl animate-fade-in page-section hidden">
-                <h2 class="text-4xl font-bold text-[#2F4F4F] mb-6 text-center">Get in Touch</h2>
-                <p class="text-lg text-[#36454F] text-center mb-8 max-w-2xl mx-auto">
-                    I'm always open to new opportunities and collaborations. Feel free to reach out to me via email or connect on social media.
-                </p>
-
-                <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
-                    <div class="text-center">
-                        <span id="contact-mail-icon"></span>
-                        <h3 class="text-2xl font-semibold text-[#36454F] mb-2">Email Me</h3>
-                        <a
-                            href="mailto:your.email@example.com"
-                            class="text-lg text-[#6B8E23] hover:underline font-medium"
-                        >
-                            your.email@example.com
-                        </a>
+            <section id="contact-page" class="page-section">
+                <h2>Get in Touch</h2>
+                <p class="contact-intro-text">I'm always open to new discussions or collaborations. Feel free to reach out to me via email or through my online presence.</p>
+                <div class="contact-methods">
+                    <div class="contact-method-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3498DB;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <h3>Email Me</h3>
+                        <a href="mailto:your.email@example.com">your.email@example.com</a>
                     </div>
-
-                    <div class="text-center">
-                        <span id="contact-github-icon"></span>
-                        <h3 class="text-2xl font-semibold text-[#36454F] mb-2">GitHub</h3>
-                        <a
-                            href="https://github.com/yourusername"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-lg text-[#6B8E23] hover:underline font-medium"
-                        >
-                            github.com/yourusername
-                        </a>
-                    </div>
-
-                    <div class="text-center">
-                        <span id="contact-linkedin-icon"></span>
-                        <h3 class="text-2xl font-semibold text-[#36454F] mb-2">LinkedIn</h3>
-                        <a
-                            href="https://linkedin.com/in/yourusername"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-lg text-[#6B8E23] hover:underline font-medium"
-                        >
-                            linkedin.com/in/yourusername
-                        </a>
+                    <div class="contact-method-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3498DB;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        <h3>My Website / Blog</h3>
+                        <a href="https://example.com/your-blog" target="_blank" rel="noopener noreferrer">example.com/your-blog</a>
                     </div>
                 </div>
 
-                <div class="mt-12 text-center">
-                    <h3 class="text-2xl font-semibold text-[#36454F] mb-4">Send me a message</h3>
-                    <form class="max-w-xl mx-auto bg-gray-50 p-6 rounded-lg shadow-inner">
-                        <div class="mb-4">
-                            <label for="name" class="block text-[#36454F] text-left text-sm font-bold mb-2">
-                                Name:
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-[#36454F] leading-tight focus:outline-none focus:ring-2 focus:ring-[#6B8E23] focus:border-transparent transition-all duration-200"
-                                placeholder="Your Name"
-                                aria-label="Name"
-                            />
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-[#36454F] text-left text-sm font-bold mb-2">
-                                Email:
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-[#36454F] leading-tight focus:outline-none focus:ring-2 focus:ring-[#6B8E23] focus:border-transparent transition-all duration-200"
-                                placeholder="your.email@example.com"
-                                aria-label="Email"
-                            />
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-[#36454F] text-left text-sm font-bold mb-2">
-                                Message:
-                            </label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="5"
-                                class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-[#36454F] leading-tight focus:outline-none focus:ring-2 focus:ring-[#6B8E23] focus:border-transparent transition-all duration-200 resize-y"
-                                placeholder="Your message here..."
-                                aria-label="Message"
-                            ></textarea>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <button
-                                type="submit"
-                                class="bg-[#2F4F4F] hover:bg-[#36454F] text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#6B8E23] focus:ring-opacity-75"
-                                onclick="event.preventDefault(); showMessage('Message sending functionality not implemented yet!');"
-                            >
-                                Send Message
-                            </button>
-                        </div>
+                <div class="contact-form-container">
+                    <h3>Send a Quick Message</h3>
+                    <form class="contact-form">
+                        <div class="form-group"><label for="name">Your Name:</label><input type="text" id="name" name="name" placeholder="Name"></div>
+                        <div class="form-group"><label for="email">Your Email:</label><input type="email" id="email" name="email" placeholder="Email Address"></div>
+                        <div class="form-group"><label for="message">Your Message:</label><textarea id="message" name="message" rows="5" placeholder="Type your message here..."></textarea></div>
+                        <div><button type="submit" class="form-submit-btn" onclick="event.preventDefault(); showMessage('Message sending functionality not implemented yet!');">Send Message</button></div>
                     </form>
                 </div>
             </section>
         </main>
 
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-6 text-center mt-auto">
-            <div class="container mx-auto text-sm">
-                <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
-                <p class="mt-2">Built with ❤️ and HTML/CSS/JavaScript.</p>
-            </div>
+        <footer class="footer">
+            <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
+            <p>Made with simple HTML, CSS, and JavaScript.</p>
         </footer>
 
-        <!-- Custom message box element -->
         <div id="message-box" class="message-box"></div>
-
     </div>
 
     <script>
-        // Store SVG icons as constants for easy reuse
-        const svgIcons = {
-            home: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-            fileText: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>`,
-            briefcase: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>`,
-            mail: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
-            github24: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.44-.78-3.46 0 0-1-3-4-1.5-2.2-.45-4.5-.45-6.7 0-3 1.5-4 4.5-4 4.5-.5.92-.75 2.1-.78 3.46 0 3.5 3 5.5 6 5.5A4.8 4.8 0 0 0 9 18v4"/><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 0 0 8 9.8c.5.1.7-.2.7-.5v-2.1c-3.7.8-4.5-1.5-4.5-1.5-.6-1.2-1-1.5-1-1.5-1-.7.1-1.6.3-1.6 1.1-.2 1.7.5 1.7.5 1.2 1 1.9 2.2 1.9 3.5.2 1.3.4 2.5.7 3.5.3.3.6.4 1.1.4.6 0 1.1-.2 1.4-.4.7-1.1 1.3-2.3 1.3-3.9 0-.4 0-.9-.1-1.4A4.8 4.8 0 0 1 15 17c3.3.3 5.7-2.6 5.7-6.2 0-3.8-2.6-6.5-6.4-6.8z"/></svg>`,
-            linkedin24: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>`,
-            mail48: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail text-[#6B8E23] mx-auto mb-4"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
-            github48: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github text-[#2F4F4F] mx-auto mb-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.44-.78-3.46 0 0-1-3-4-1.5-2.2-.45-4.5-.45-6.7 0-3 1.5-4 4.5-4 4.5-.5.92-.75 2.1-.78 3.46 0 3.5 3 5.5 6 5.5A4.8 4.8 0 0 0 9 18v4"/><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 0 0 8 9.8c.5.1.7-.2.7-.5v-2.1c-3.7.8-4.5-1.5-4.5-1.5-.6-1.2-1-1.5-1-1.5-1-.7.1-1.6.3-1.6 1.1-.2 1.7.5 1.7.5 1.2 1 1.9 2.2 1.9 3.5.2 1.3.4 2.5.7 3.5.3.3.6.4 1.1.4.6 0 1.1-.2 1.4-.4.7-1.1 1.3-2.3 1.3-3.9 0-.4 0-.9-.1-1.4A4.8 4.8 0 0 1 15 17c3.3.3 5.7-2.6 5.7-6.2 0-3.8-2.6-6.5-6.4-6.8z"/></svg>`,
-            linkedin48: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin text-[#6B8E23] mx-auto mb-4"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>`
-        };
-
-        // Data for portfolio projects
-        const projectsData = [
-            {
-                id: 1,
-                title: 'Project Alpha',
-                description: 'A web application demonstrating advanced data visualization using D3.js and React.',
-                technologies: ['React', 'D3.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
-                image: 'https://placehold.co/400x250/A7C4BC/36454F?text=Project+Alpha',
-                githubLink: 'https://github.com/yourusername/project-alpha',
-                liveLink: 'https://yourwebsite.com/project-alpha',
-            },
-            {
-                id: 2,
-                title: 'Mobile Game XYZ',
-                description: 'An engaging 2D mobile game built with Unity, featuring intricate mechanics and stunning graphics.',
-                technologies: ['Unity', 'C#', 'Mobile Development'],
-                image: 'https://placehold.co/400x250/A7C4BC/36454F?text=Mobile+Game+XYZ',
-                githubLink: 'https://github.com/yourusername/mobile-game-xyz',
-                liveLink: 'https://yourwebsite.com/mobile-game-xyz',
-            },
-            {
-                id: 3,
-                title: 'E-commerce Platform',
-                description: 'A full-stack e-commerce solution with user authentication, product management, and secure payment processing.',
-                technologies: ['Next.js', 'Stripe', 'Firebase', 'TypeScript'],
-                image: 'https://placehold.co/400x250/A7C4BC/36454F?text=E-commerce+Platform',
-                githubLink: 'https://github.com/yourusername/ecommerce-platform',
-                liveLink: 'https://yourwebsite.com/ecommerce-platform',
-            },
-            {
-                id: 4,
-                title: 'IoT Dashboard',
-                description: 'A real-time dashboard for monitoring IoT devices, integrating with various sensors and cloud services.',
-                technologies: ['Python', 'Django', 'MQTT', 'AWS IoT', 'React'],
-                image: 'https://placehold.co/400x250/A7C4BC/36454F?text=IoT+Dashboard',
-                githubLink: 'https://github.com/yourusername/iot-dashboard',
-                liveLink: 'https://yourwebsite.com/iot-dashboard',
-            },
-        ];
-
-        // JavaScript to handle page switching and dynamic content generation
         document.addEventListener('DOMContentLoaded', () => {
-            // Set the current year in the footer
             document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Populate static icons on load
-            document.getElementById('home-github-icon').innerHTML = svgIcons.github24;
-            document.getElementById('home-linkedin-icon').innerHTML = svgIcons.linkedin24;
-            document.getElementById('resume-download-icon').innerHTML = svgIcons.fileText;
-            document.getElementById('contact-mail-icon').innerHTML = svgIcons.mail48;
-            document.getElementById('contact-github-icon').innerHTML = svgIcons.github48;
-            document.getElementById('contact-linkedin-icon').innerHTML = svgIcons.linkedin48;
-
-            // Generate navigation buttons
-            generateNavButtons();
-
-            // Generate portfolio projects
-            generatePortfolio();
-
-            // Display the home page by default on load
             showPage('home-page');
         });
 
-        /**
-         * Generates and inserts navigation buttons into the navbar.
-         */
-        function generateNavButtons() {
-            const navButtonsContainer = document.getElementById('navbar-buttons');
-            const navItems = [
-                { id: 'home-page', text: 'Home', icon: svgIcons.home },
-                { id: 'resume-page', text: 'Resume', icon: svgIcons.fileText },
-                { id: 'portfolio-page', text: 'Portfolio', icon: svgIcons.briefcase },
-                { id: 'contact-page', text: 'Contact', icon: svgIcons.mail }
-            ];
-
-            navButtonsContainer.innerHTML = navItems.map(item => `
-                <li>
-                    <button onclick="showPage('${item.id}')"
-                        class="flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-[#36454F] hover:bg-gray-100 hover:text-[#2F4F4F]"
-                        data-target-page="${item.id}">
-                        ${item.icon}
-                        <span>${item.text}</span>
-                    </button>
-                </li>
-            `).join('');
-        }
-
-        /**
-         * Shows a specific page section and hides all others.
-         * Updates the active state of navigation buttons.
-         * @param {string} pageId The ID of the page section to show (e.g., 'home-page').
-         */
         function showPage(pageId) {
-            // Get all page sections
-            const pageSections = document.querySelectorAll('.page-section');
-            pageSections.forEach(section => {
-                section.classList.add('hidden'); // Hide all sections
-                section.classList.remove('active-page'); // Remove active class
-            });
-
-            // Show the selected page section
+            document.querySelectorAll('.page-section').forEach(section => { section.classList.remove('active-page'); });
             const activePage = document.getElementById(pageId);
             if (activePage) {
-                activePage.classList.remove('hidden'); // Make it visible
-                activePage.classList.add('active-page'); // Add active class
-                activePage.classList.remove('animate-fade-in'); // Reset animation
-                void activePage.offsetWidth; // Trigger reflow for animation
-                activePage.classList.add('animate-fade-in'); // Re-add animation
-
-                // Update navigation button active state
-                const navButtons = document.querySelectorAll('nav button');
-                navButtons.forEach(button => {
-                    if (button.dataset.targetPage === pageId) {
-                        button.classList.add('bg-[#2F4F4F]', 'text-white', 'shadow-md'); /* Active color */
-                        button.classList.remove('text-[#36454F]', 'hover:bg-gray-100', 'hover:text-[#2F4F4F]');
-                    } else {
-                        button.classList.remove('bg-[#2F4F4F]', 'text-white', 'shadow-md');
-                        button.classList.add('text-[#36454F]', 'hover:bg-gray-100', 'hover:text-[#2F4F4F]');
-                    }
+                activePage.classList.add('active-page');
+                activePage.classList.remove('fadeIn');
+                void activePage.offsetWidth;
+                activePage.classList.add('fadeIn');
+                document.querySelectorAll('.navbar button').forEach(button => {
+                    if (button.dataset.targetPage === pageId) { button.classList.add('active'); } else { button.classList.remove('active'); }
                 });
             }
         }
 
-        /**
-         * Generates and inserts portfolio project cards into the portfolio section.
-         */
-        function generatePortfolio() {
-            const portfolioContainer = document.getElementById('portfolio-projects-container');
-            if (!portfolioContainer) return; // Exit if container not found
-
-            portfolioContainer.innerHTML = projectsData.map(project => `
-                <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-                    <img
-                        src="${project.image}"
-                        alt="${project.title}"
-                        class="w-full h-48 object-cover border-b border-gray-200"
-                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/CCCCCC/000000?text=Image+Error';"
-                    />
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-[#2F4F4F] mb-3">${project.title}</h3>
-                        <p class="text-[#36454F] mb-4 text-base">${project.description}</p>
-                        <div class="mb-4">
-                            <span class="text-sm font-medium text-gray-600">Technologies:</span>
-                            <div class="flex flex-wrap gap-2 mt-1">
-                                ${project.technologies.map(tech => `
-                                    <span class="bg-[#D6E3D8] text-[#2F4F4F] text-xs font-semibold px-2.5 py-0.5 rounded-full">${tech}</span>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-4 mt-6">
-                            <a
-                                href="${project.githubLink}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex items-center space-x-2 bg-[#2F4F4F] text-white px-5 py-2 rounded-full text-md font-medium shadow-md hover:bg-[#36454F] transition-all duration-300"
-                            >
-                                ${svgIcons.github24}
-                                <span>GitHub</span>
-                            </a>
-                            ${project.liveLink ? `
-                            <a
-                                href="${project.liveLink}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex items-center space-x-2 bg-[#6B8E23] text-white px-5 py-2 rounded-full text-md font-medium shadow-md hover:bg-[#8B9E4A] transition-all duration-300"
-                            >
-                                ${svgIcons.briefcase}
-                                <span>Live Demo</span>
-                            </a>
-                            ` : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        /**
-         * Displays a custom message box with the given text.
-         * The message box automatically hides after a few seconds.
-         * @param {string} message The text to display in the message box.
-         * @param {number} duration The duration in milliseconds to display the message (default: 3000).
-         */
         function showMessage(message, duration = 3000) {
             const msgBox = document.getElementById('message-box');
             msgBox.textContent = message;
             msgBox.classList.add('show');
-
-            setTimeout(() => {
-                msgBox.classList.remove('show');
-            }, duration);
+            setTimeout(() => { msgBox.classList.remove('show'); }, duration);
         }
     </script>
 </body>

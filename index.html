@@ -21,33 +21,27 @@
         h2 { font-size: 20px; font-weight: bold; color: #42A5F5; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed #B0BEC5; padding-bottom: 8px; }
 
         .home-content { display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center; }
-        .profile-section { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
-        .profile-img-container { width: 150px; height: 150px; border: 2px solid #66BB6A; overflow: hidden; background-color: #F8F8F8; }
-        .profile-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .home-text h2 { font-size: 28px; color: #212121; margin-bottom: 5px; border-bottom: none; padding-bottom: 0; }
-        .home-text h2 span { color: #66BB6A; }
-        .home-text p { font-size: 14px; margin-bottom: 10px; }
-        .home-text p span { font-weight: bold; }
-        .simple-link-btn { display: inline-block; padding: 7px 14px; background-color: #42A5F5; color: white; text-decoration: none; border-radius: 3px; font-size: 13px; margin: 3px; }
-        .simple-link-btn:hover { background-color: #2196F3; }
+        .home-intro { width: 100%; margin-bottom: 15px; }
+        .home-intro h2 { font-size: 28px; color: #212121; margin-bottom: 5px; border-bottom: none; padding-bottom: 0; }
+        .home-intro h2 span { color: #66BB6A; }
+        .home-intro p { font-size: 14px; margin-bottom: 10px; }
+        .home-intro p span { font-weight: bold; }
+        
+        .my-photo-container { width: 250px; height: 250px; border: 2px solid #66BB6A; overflow: hidden; background-color: #F8F8F8; margin-bottom: 15px; }
+        .my-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
         .about-me-section { border-top: 1px solid #B0BEC5; padding-top: 15px; margin-top: 15px; text-align: left; width: 100%; }
         .about-me-section h3 { font-size: 16px; font-weight: bold; color: #212121; margin-bottom: 10px; }
         .about-me-section p { font-size: 13px; color: #555; line-height: 1.5; }
-        @media (min-width: 600px) {
-            .profile-section { flex-direction: row-reverse; text-align: left; align-items: flex-start; }
-            .home-text { text-align: left; }
-            .profile-img-container { flex-shrink: 0; }
-        }
-
+        
         .resume-content { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
         .resume-content p { font-size: 13px; margin-bottom: 8px; }
         .resume-preview-container { width: 100%; max-width: 400px; height: 180px; background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         .resume-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; opacity: 0; transition: opacity 0.2s; }
+        .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; opacity: 0; }
         .resume-preview-container:hover .resume-preview-overlay { opacity: 1; }
-        .download-resume-btn { display: none; } /* HIDDEN */
-        .resume-note { display: none; } /* HIDDEN */
-
+        .download-resume-btn { display: none; }
+        .resume-note { display: none; }
 
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
         .project-card { background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; overflow: hidden; }
@@ -58,7 +52,7 @@
         .tech-label { font-size: 10px; font-weight: bold; color: #777; margin-bottom: 2px; display: block; }
         .tech-list { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
         .tech-item { background-color: #E3F2FD; color: #212121; font-size: 8px; padding: 1px 5px; border-radius: 6px; }
-        .project-links { display: none; } /* HIDDEN */
+        .project-links { display: none; }
 
         .contact-intro-text { text-align: center; font-size: 13px; margin-bottom: 15px; }
         .contact-methods { display: flex; flex-direction: column; align-items: center; gap: 15px; }
@@ -94,15 +88,15 @@
         <main>
             <section id="home-page" class="page-section active-page">
                 <div class="home-content">
-                    <div class="profile-section">
-                        <div class="home-text">
-                            <h2>Hello, I'm <span>Your Name</span>!</h2>
-                            <p>I'm a dedicated <span>creative professional</span> focused on bringing ideas to life. Welcome to my personal corner on the web!</p>
-                        </div>
-                        <div class="profile-img-container">
-                            <img src="my_photo.png" alt="Your Photo" class="profile-img">
-                        </div>
+                    <div class="home-intro">
+                        <h2>Hello, I'm <span>Your Name</span>!</h2>
+                        <p>I'm a dedicated <span>creative professional</span> focused on bringing ideas to life. Welcome to my personal corner on the web!</p>
                     </div>
+
+                    <div class="my-photo-container">
+                        <img src="my_photo.png" alt="Your Photo" class="my-photo">
+                    </div>
+
                     <div class="about-me-section">
                         <h3>About Me</h3>
                         <p>

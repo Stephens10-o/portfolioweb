@@ -3,109 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Site</title>
+    <title>My Site</title>
     <style>
-        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #E0FFFF; color: #2C3E50; min-height: 100vh; display: flex; flex-direction: column; }
-        main { flex-grow: 1; width: 90%; max-width: 800px; margin: 25px auto; padding: 20px; background-color: #FFFFFF; border: 1px solid #BDC3C7; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); animation: fadeIn 0.8s ease-out forwards; }
+        body { font-family: sans-serif; margin: 0; padding: 0; background: linear-gradient(to bottom right, #BBF7D0, #C7D2FE); color: #212121; min-height: 100vh; display: flex; flex-direction: column; }
+        main { flex-grow: 1; width: 90%; max-width: 700px; margin: 20px auto; padding: 15px; background-color: #FFF; border: 1px solid #B0BEC5; border-radius: 3px; animation: fadeIn 0.5s ease-out forwards; }
         .page-section { display: none; }
         .page-section.active-page { display: block; }
 
-        .navbar { background-color: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 15px 20px; position: sticky; top: 0; z-index: 100; text-align: center; }
-        .navbar h1 { font-size: 28px; font-weight: bold; color: #34495E; margin-bottom: 15px; }
-        .navbar ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        .navbar button { padding: 10px 18px; border: 1px solid #AAB7B8; border-radius: 20px; background-color: transparent; color: #2C3E50; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
-        .navbar button:hover { background-color: #F2F4F4; color: #34495E; border-color: #34495E; }
-        .navbar button.active { background-color: #34495E; color: white; border-color: #34495E; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        @media (min-width: 768px) { .navbar { display: flex; justify-content: space-between; align-items: center; } .navbar h1 { margin-bottom: 0; } }
+        .navbar { background-color: #FFF; border-bottom: 1px solid #E0E0E0; padding: 10px 0; text-align: center; }
+        .navbar h1 { font-size: 22px; font-weight: bold; color: #42A5F5; margin-bottom: 10px; }
+        .navbar ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+        .navbar button { padding: 6px 12px; border: 1px solid #42A5F5; border-radius: 10px; background-color: transparent; color: #212121; font-size: 13px; cursor: pointer; }
+        .navbar button:hover { background-color: #E3F2FD; }
+        .navbar button.active { background-color: #42A5F5; color: white; border-color: #42A5F5; }
+        @media (min-width: 600px) { .navbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; } .navbar h1 { margin-bottom: 0; } }
 
-        h2 { font-size: 28px; font-weight: bold; color: #34495E; margin-bottom: 25px; text-align: center; border-bottom: 1px solid #D3D3D3; padding-bottom: 10px; }
+        h2 { font-size: 20px; font-weight: bold; color: #42A5F5; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed #B0BEC5; padding-bottom: 8px; }
 
-        .home-content { display: flex; flex-direction: column; align-items: center; gap: 25px; }
-        .profile-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid #7F8C8D; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .home-text { text-align: center; }
-        .home-text h2 { font-size: 36px; color: #34495E; margin-bottom: 10px; border-bottom: none; padding-bottom: 0; }
-        .home-text h2 span { color: #87CEEB; }
-        .home-text p { font-size: 17px; color: #2C3E50; margin-bottom: 20px; }
-        .home-text p span { font-weight: 600; color: #34495E; }
-        .simple-link-btn { display: inline-block; padding: 10px 20px; background-color: #3498DB; color: white; text-decoration: none; border-radius: 5px; font-weight: 600; transition: background-color 0.2s; margin: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
-        .simple-link-btn:hover { background-color: #2980B9; }
-        @media (min-width: 768px) { .home-content { flex-direction: row; text-align: left; } .home-text { text-align: left; } }
+        .home-content { display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center; }
+        .profile-section { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
+        .profile-img-container { width: 150px; height: 150px; border: 2px solid #66BB6A; overflow: hidden; background-color: #F8F8F8; }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .home-text h2 { font-size: 28px; color: #212121; margin-bottom: 5px; border-bottom: none; padding-bottom: 0; }
+        .home-text h2 span { color: #66BB6A; }
+        .home-text p { font-size: 14px; margin-bottom: 10px; }
+        .home-text p span { font-weight: bold; }
+        .simple-link-btn { display: inline-block; padding: 7px 14px; background-color: #42A5F5; color: white; text-decoration: none; border-radius: 3px; font-size: 13px; margin: 3px; }
+        .simple-link-btn:hover { background-color: #2196F3; }
+        .about-me-section { border-top: 1px solid #B0BEC5; padding-top: 15px; margin-top: 15px; text-align: left; width: 100%; }
+        .about-me-section h3 { font-size: 16px; font-weight: bold; color: #212121; margin-bottom: 10px; }
+        .about-me-section p { font-size: 13px; color: #555; line-height: 1.5; }
+        @media (min-width: 600px) {
+            .profile-section { flex-direction: row-reverse; text-align: left; align-items: flex-start; }
+            .home-text { text-align: left; }
+            .profile-img-container { flex-shrink: 0; }
+        }
 
-        .resume-content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .resume-content p { font-size: 16px; text-align: center; margin-bottom: 15px; }
-        .resume-preview-container { position: relative; width: 100%; height: 280px; background-color: #F8F9F9; border: 1px dashed #A9A9A9; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .resume-content { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+        .resume-content p { font-size: 13px; margin-bottom: 8px; }
+        .resume-preview-container { width: 100%; max-width: 400px; height: 180px; background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         .resume-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; opacity: 0; transition: opacity 0.3s; }
+        .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; opacity: 0; transition: opacity 0.2s; }
         .resume-preview-container:hover .resume-preview-overlay { opacity: 1; }
-        .download-resume-btn { background-color: #27AE60; color: white; padding: 12px 25px; border-radius: 25px; font-size: 17px; font-weight: bold; text-decoration: none; transition: background-color 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
-        .download-resume-btn:hover { background-color: #229954; }
-        .resume-note { font-size: 12px; color: #757575; margin-top: 5px; }
+        .download-resume-btn { background-color: #66BB6A; color: white; padding: 8px 16px; border-radius: 15px; font-size: 14px; font-weight: bold; text-decoration: none; }
+        .download-resume-btn:hover { background-color: #4CAF50; }
+        .resume-note { font-size: 10px; color: #666; margin-top: 2px; }
 
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
-        .project-card { background-color: #F8F9F9; border: 1px solid #BDC3C7; border-radius: 5px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
-        .project-card:hover { transform: translateY(-3px); box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
-        .project-card img { width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #BDC3C7; }
-        .project-card-content { padding: 18px; }
-        .project-card-content h3 { font-size: 18px; font-weight: 600; color: #34495E; margin-bottom: 8px; }
-        .project-card-content p { color: #2C3E50; font-size: 14px; margin-bottom: 15px; }
-        .tech-label { font-size: 12px; font-weight: 600; color: #7F8C8D; margin-bottom: 5px; display: block; }
-        .tech-list { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
-        .tech-item { background-color: #D6EAF8; color: #2C3E50; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 400; }
-        .project-links { display: flex; flex-wrap: wrap; gap: 8px; }
-        .simple-link-btn.view { background-color: #3498DB; color: white; }
-        .simple-link-btn.view:hover { background-color: #2980B9; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .project-card { background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; overflow: hidden; }
+        .project-card img { width: 100%; height: 100px; object-fit: cover; border-bottom: 1px solid #B0BEC5; }
+        .project-card-content { padding: 10px; }
+        .project-card-content h3 { font-size: 15px; font-weight: bold; color: #212121; margin-bottom: 4px; }
+        .project-card-content p { color: #555; font-size: 12px; margin-bottom: 8px; }
+        .tech-label { font-size: 10px; font-weight: bold; color: #777; margin-bottom: 2px; display: block; }
+        .tech-list { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
+        .tech-item { background-color: #E3F2FD; color: #212121; font-size: 8px; padding: 1px 5px; border-radius: 6px; }
 
-        .contact-intro-text { text-align: center; font-size: 16px; margin-bottom: 25px; }
-        .contact-methods { display: flex; flex-direction: column; align-items: center; gap: 25px; }
-        .contact-method-item { text-align: center; background-color: #F8F9F9; padding: 20px; border-radius: 5px; border: 1px solid #BDC3C7; box-shadow: 0 1px 3px rgba(0,0,0,0.1); width: 85%; max-width: 280px; }
-        .contact-method-item svg { color: #3498DB; margin: 0 auto 12px auto; display: block; width: 40px; height: 40px; }
-        .contact-method-item h3 { font-size: 20px; font-weight: 600; color: #2C3E50; margin-bottom: 8px; }
-        .contact-method-item a { font-size: 15px; color: #3498DB; text-decoration: none; font-weight: 500; }
+        .contact-intro-text { text-align: center; font-size: 13px; margin-bottom: 15px; }
+        .contact-methods { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .contact-method-item { text-align: center; background-color: #F0F4F7; padding: 12px; border-radius: 3px; border: 1px solid #B0BEC5; width: 85%; max-width: 200px; }
+        .contact-method-item svg { color: #66BB6A; margin: 0 auto 8px auto; display: block; width: 30px; height: 30px; }
+        .contact-method-item h3 { font-size: 16px; font-weight: bold; color: #212121; margin-bottom: 5px; }
+        .contact-method-item a { font-size: 13px; color: #212121; text-decoration: none; }
         .contact-method-item a:hover { text-decoration: underline; }
-        @media (min-width: 768px) { .contact-methods { flex-direction: row; justify-content: center; gap: 30px; } .contact-method-item { width: auto; } }
+        @media (min-width: 600px) { .contact-methods { flex-direction: row; justify-content: center; gap: 20px; } .contact-method-item { width: auto; } }
 
-        .contact-form-container { margin-top: 35px; text-align: center; }
-        .contact-form-container h3 { font-size: 20px; font-weight: 600; color: #2C3E50; margin-bottom: 20px; }
-        .contact-form { width: 90%; max-width: 450px; margin: 0 auto; background-color: #F8F9F9; padding: 20px; border-radius: 5px; border: 1px solid #BDC3C7; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 18px; text-align: left; }
-        .form-group label { display: block; color: #2C3E50; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-        .form-group input, .form-group textarea { width: calc(100% - 18px); padding: 9px; border: 1px solid #BDC3C7; border-radius: 3px; color: #2C3E50; font-size: 15px; box-shadow: inset 0 1px 1px rgba(0,0,0,0.03); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-        .form-group input:focus, .form-group textarea:focus { border-color: #3498DB; box-shadow: 0 0 0 1px rgba(52, 152, 219, 0.2); }
-        .form-group textarea { resize: vertical; }
-        .form-submit-btn { background-color: #3498DB; color: white; font-weight: 600; padding: 10px 22px; border-radius: 22px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: background-color 0.2s; cursor: pointer; border: none; }
-        .form-submit-btn:hover { background-color: #2980B9; transform: translateY(-1px); }
+        .contact-form-container { display: none; }
 
-        .footer { background-color: #2C3E50; color: white; padding: 18px; text-align: center; margin-top: auto; font-size: 13px; }
-        .footer p { margin: 4px 0; }
+        .footer { background-color: #212121; color: white; padding: 12px; text-align: center; margin-top: auto; font-size: 11px; }
+        .footer p { margin: 2px 0; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .message-box { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); background-color: #2ECC71; color: white; padding: 12px 18px; border-radius: 6px; box-shadow: 0 3px 6px rgba(0,0,0,0.2); z-index: 1000; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message-box { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background-color: #66BB6A; color: white; padding: 8px 12px; border-radius: 4px; z-index: 1000; opacity: 0; }
         .message-box.show { opacity: 1; }
     </style>
 </head>
 <body>
     <div>
         <nav class="navbar">
-            <h1>My Simple Site</h1>
+            <h1>My Site</h1>
             <ul>
-                <li><button onclick="showPage('home-page')" data-target-page="home-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button></li>
-                <li><button onclick="showPage('resume-page')" data-target-page="resume-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>Resume</span></button></li>
-                <li><button onclick="showPage('portfolio-page')" data-target-page="portfolio-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M16 20V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></svg><span>Projects</span></button></li>
-                <li><button onclick="showPage('contact-page')" data-target-page="contact-page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>Contact</span></button></li>
+                <li><button onclick="showPage('home-page')" data-target-page="home-page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button></li>
+                <li><button onclick="showPage('resume-page')" data-target-page="resume-page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>Resume</span></button></li>
+                <li><button onclick="showPage('portfolio-page')" data-target-page="portfolio-page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M16 20V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16"/></svg><span>Projects</span></button></li>
+                <li><button onclick="showPage('contact-page')" data-target-page="contact-page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>Contact</span></button></li>
             </ul>
         </nav>
 
         <main>
             <section id="home-page" class="page-section active-page">
                 <div class="home-content">
-                    <div>
-                        <img src="" alt="Your Profile" class="profile-img">
+                    <div class="profile-section">
+                        <div class="home-text">
+                            <h2>Hello, I'm <span>Your Name</span>!</h2>
+                            <p>I'm a dedicated <span>creative professional</span> focused on bringing ideas to life. Welcome to my personal corner on the web!</p>
+                        </div>
+                        <div class="profile-img-container">
+                            <img src="my_photo.png" alt="Your Photo" class="profile-img">
+                        </div>
                     </div>
-                    <div class="home-text">
-                        <h2>Hello, I'm <span>Stephen Saber</span>!</h2>
-                        <p>I'm a junior at Dover Sherborn High School, <span>applying to college, </span> preparing for my senior year and the next chapter of my life. Welcome to my personal portfolio page and feel free to check it out.</p>
-                        <a href="#contact-page" onclick="showPage('contact-page');"
-                        <a href="#portfolio-page" onclick="showPage('portfolio-page');" class="simple-link-btn">View My Work</a>
+                    <div class="about-me-section">
+                        <h3>About Me</h3>
+                        <p>
+                            Hi there! I'm [Your Name], and I thrive on creative challenges. Whether it's crafting compelling visual designs or diving into community projects, I enjoy bringing fresh perspectives and practical solutions. This site is a small glimpse into my journey and some of the things I'm passionate about. I believe in continuous learning and always look for opportunities to grow and contribute meaningfully.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -113,13 +114,14 @@
             <section id="resume-page" class="page-section">
                 <h2>My Resume</h2>
                 <div class="resume-content">
-                    <p>Here's a picture of my resume, showing my past and current workspaces, and past acccomplishments in the work field aswell.</p>
+                    <p>Here's a snapshot of my professional journey, skills, and educational background. You can view a preview below or download the full document.</p>
                     <div class="resume-preview-container">
-                        <img src="https://placehold.co/800x600/E0FFFF/333333?text=Resume+Preview" alt="Resume Preview" class="resume-preview-img">
+                        <img src="resume.png" class="resume-preview-img">
                         <div class="resume-preview-overlay"><span>Click image to view full PDF</span></div>
                     </div>
                     <a href="https://example.com/your_resume.pdf" target="_blank" rel="noopener noreferrer" class="download-resume-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                        <span>Download Resume (PDF)</span>
                     </a>
                     <p class="resume-note">*Note: The image above is a placeholder. Please click the download button for the actual PDF.</p>
                 </div>
@@ -130,62 +132,43 @@
                 <p class="contact-intro-text">Here's a selection of some work I've done, showcasing different skills and solutions.</p>
                 <div class="portfolio-grid">
                     <div class="project-card">
-                        <img src="https://placehold.co/400x250/E0FFFF/333333?text=Project+One" alt="Project One">
+                        <img src="https://placehold.co/250x100/90CAF9/36454F?text=Project+One" alt="Project One">
                         <div class="project-card-content">
-                            <h3>Creative Design Showcase</h3>
-                            <p>A collection of graphic design and digital art projects, highlighting visual storytelling.</p>
-                            <span class="tech-label">Skills Used:</span>
-                            <div class="tech-list"><span class="tech-item">Photoshop</span><span class="tech-item">Illustrator</span><span class="tech-item">Concept Art</span></div>
-                            <div class="project-links"><a href="https://example.com/project-one" target="_blank" rel="noopener noreferrer" class="simple-link-btn view">View Project</a></div>
+                            <h3>Creative Design</h3>
+                            <p>Graphic design and digital art concepts.</p>
+                            <span class="tech-label">Skills:</span>
+                            <div class="tech-list"><span>PS</span><span>AI</span></div>
                         </div>
                     </div>
                     <div class="project-card">
-                        <img src="https://placehold.co/400x250/E0FFFF/333333?text=Project+Two" alt="Project Two">
+                        <img src="https://placehold.co/250x100/90CAF9/36454F?text=Project+Two" alt="Project Two">
                         <div class="project-card-content">
-                            <h3>Community Initiative</h3>
-                            <p>A project focusing on local community engagement and volunteer coordination.</p>
-                            <span class="tech-label">Skills Used:</span>
-                            <div class="tech-list"><span class="tech-item">Event Planning</span><span class="tech-item">Communication</span><span class="tech-item">Fundraising</span></div>
-                            <div class="project-links"><a href="https://example.com/project-two" target="_blank" rel="noopener noreferrer" class="simple-link-btn view">View Project</a></div>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="https://placehold.co/400x250/E0FFFF/333333?text=Project+Three" alt="Project Three">
-                        <div class="project-card-content">
-                            <h3>Simple Web Development</h3>
-                            <p>A basic website demonstrating clean coding practices and user-friendly design.</p>
-                            <span class="tech-label">Skills Used:</span>
-                            <div class="tech-list"><span class="tech-item">HTML</span><span class="tech-item">CSS</span><span class="tech-item">JavaScript</span></div>
-                            <div class="project-links"><a href="https://example.com/project-three" target="_blank" rel="noopener noreferrer" class="simple-link-btn view">View Project</a></div>
+                            <h3>Community Work</h3>
+                            <p>Local community engagement and outreach.</p>
+                            <span class="tech-label">Skills:</span>
+                            <div class="tech-list"><span>Event</span><span>Comm.</span></div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="contact-page" class="page-section">
-                <h2>Get in Touch</h2>
-                <p class="contact-intro-text">I'm always open to new discussions or collaborations. Feel free to reach out to me via email or through my online presence.</p>
+                <h2>Contact Me</h2>
+                <p class="contact-intro-text">Feel free to reach out via email.</p>
                 <div class="contact-methods">
                     <div class="contact-method-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3498DB;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                        <h3>Email Me</h3>
-                        <a href="mailto:saber.stephen@doversherborn.org">saber.stephen@doversherborn.org</a>
-                    </div>
-                    <div class="contact-method-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3498DB;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                        <h3>My Website / Blog</h3>
-                        <a href="https://example.com/your-blog" target="_blank" rel="noopener noreferrer">example.com/your-blog</a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #66BB6A;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <h3>Email</h3>
+                        <a href="mailto:your.email@example.com">your.email@example.com</a>
                     </div>
                 </div>
 
-                <div class="contact-form-container">
-
-                </div>
+                <div class="contact-form-container"></div>
             </section>
         </main>
 
         <footer class="footer">
-            <p>&copy; <span id="current-year"></span> Stephen Saber. All rights reserved.</p>
+            <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
             <p>Made with simple HTML, CSS, and JavaScript.</p>
         </footer>
 
@@ -197,7 +180,6 @@
             document.getElementById('current-year').textContent = new Date().getFullYear();
             showPage('home-page');
         });
-
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => { section.classList.remove('active-page'); });
             const activePage = document.getElementById(pageId);
@@ -211,7 +193,6 @@
                 });
             }
         }
-
         function showMessage(message, duration = 3000) {
             const msgBox = document.getElementById('message-box');
             msgBox.textContent = message;

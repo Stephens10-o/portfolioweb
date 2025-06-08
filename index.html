@@ -45,9 +45,9 @@
         .resume-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; opacity: 0; transition: opacity 0.2s; }
         .resume-preview-container:hover .resume-preview-overlay { opacity: 1; }
-        .download-resume-btn { background-color: #66BB6A; color: white; padding: 8px 16px; border-radius: 15px; font-size: 14px; font-weight: bold; text-decoration: none; }
-        .download-resume-btn:hover { background-color: #4CAF50; }
-        .resume-note { font-size: 10px; color: #666; margin-top: 2px; }
+        .download-resume-btn { display: none; } /* HIDDEN */
+        .resume-note { display: none; } /* HIDDEN */
+
 
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
         .project-card { background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; overflow: hidden; }
@@ -58,6 +58,7 @@
         .tech-label { font-size: 10px; font-weight: bold; color: #777; margin-bottom: 2px; display: block; }
         .tech-list { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
         .tech-item { background-color: #E3F2FD; color: #212121; font-size: 8px; padding: 1px 5px; border-radius: 6px; }
+        .project-links { display: none; } /* HIDDEN */
 
         .contact-intro-text { text-align: center; font-size: 13px; margin-bottom: 15px; }
         .contact-methods { display: flex; flex-direction: column; align-items: center; gap: 15px; }
@@ -114,22 +115,17 @@
             <section id="resume-page" class="page-section">
                 <h2>My Resume</h2>
                 <div class="resume-content">
-                    <p>Here's a snapshot of my professional journey, skills, and educational background. You can view a preview below or download the full document.</p>
+                    <p>Here's a snapshot of my professional journey, skills, and educational background. You can view it below.</p>
                     <div class="resume-preview-container">
-                        <img src="resume.png" class="resume-preview-img">
-                        <div class="resume-preview-overlay"><span>Click image to view full PDF</span></div>
+                        <img src="resume.png" alt="Resume Preview" class="resume-preview-img">
+                        <div class="resume-preview-overlay"><span>View full image</span></div>
                     </div>
-                    <a href="https://example.com/your_resume.pdf" target="_blank" rel="noopener noreferrer" class="download-resume-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                        <span>Download Resume (PDF)</span>
-                    </a>
-                    <p class="resume-note">*Note: The image above is a placeholder. Please click the download button for the actual PDF.</p>
                 </div>
             </section>
 
             <section id="portfolio-page" class="page-section">
                 <h2>My Projects</h2>
-                <p class="contact-intro-text">Here's a selection of some work I've done, showcasing different skills and solutions.</p>
+                <p class="contact-intro-text">Here's a selection of some work I've done, showcasing different skills and ideas.</p>
                 <div class="portfolio-grid">
                     <div class="project-card">
                         <img src="https://placehold.co/250x100/90CAF9/36454F?text=Project+One" alt="Project One">
@@ -162,8 +158,6 @@
                         <a href="mailto:your.email@example.com">your.email@example.com</a>
                     </div>
                 </div>
-
-                <div class="contact-form-container"></div>
             </section>
         </main>
 

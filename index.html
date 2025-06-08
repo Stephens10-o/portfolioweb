@@ -36,11 +36,11 @@
         
         .resume-content { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
         .resume-content p { font-size: 13px; margin-bottom: 8px; }
-.resume-preview-container { width: 100%; max-width: 400px; height: 180px; background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        .resume-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; opacity: 0; }
-        .download-resume-btn { display: none; }
-        .resume-note { display: none; }
+        .resume-preview-container { width: 100%; max-width: 400px;  height: 180px; background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        .resume-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+        .resume-preview-overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; opacity: 0; transition: opacity 0.2s; }
+        .download-resume-btn { display: none; } 
+        .resume-note { display: none; } 
 
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
         .project-card { background-color: #F0F4F7; border: 1px solid #B0BEC5; border-radius: 3px; overflow: hidden; }
@@ -111,7 +111,6 @@
                     <p>This is a picture of my resume, it shows my past and current work experiences, along with awards and accolades I have recieved. You can view it below.</p>
                     <div class="resume-preview-container">
                         <img src="resume.png" alt="Resume Preview" class="resume-preview-img">
-                        <div class="resume-preview-overlay"><span>View full image</span></div>
                     </div>
                 </div>
             </section>
